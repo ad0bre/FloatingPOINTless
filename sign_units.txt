@@ -1,0 +1,32 @@
+module Immediate_Sign_Extend_Unit(
+  input[8:0] offset,
+  output[15:0] data
+);
+
+assign data[15] = offset[8];
+assign data[14:8] = 0;
+assign data[7:0] = offset[7:0];
+
+endmodule
+
+---------------------------------
+
+module Reg_Address_Sign_Extend_Unit(
+  input inAddress,
+  output [1:0] outAddress
+);
+
+  assign outAddress = {1'b1, inAddress};
+
+endmodule
+
+----------------------------------------
+
+module Mem_Address_Sign_Extend_Unit(
+  input [9:0] immediate,
+  output [10:0] address
+);
+
+  assign address = {immediate[9], immediate};
+
+endmodule
