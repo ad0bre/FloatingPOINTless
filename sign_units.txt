@@ -4,7 +4,7 @@ module Immediate_Sign_Extend_Unit(
 );
 
 assign data[15] = offset[8];
-assign data[14:8] = 0;
+assign data[14:8] = 1;
 assign data[7:0] = offset[7:0];
 
 endmodule
