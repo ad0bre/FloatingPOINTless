@@ -1,0 +1,18 @@
+MOV R0, #10 //a
+MOV R1, #2  //b
+MOV R2, #3  //c
+MUL R0, R1 // a * b
+MUL R0, R2 // a * b * c
+MOV R1, #14 // d
+MOV R2, #9 // e
+DIV R1, R2 // d/e
+ADD R0, R1 // a * b * c + d / e
+MOV R1, #19 // f // 18
+MOV R2, #10 // g
+SUB R1, R2 // f - g
+MOD R0, R1 // (a*b*b+d/e) mod (f-g)
+
+10 * 2 * 3 + 14 / 9
+60 + 1
+61 mod 9
+61 mod 8 = 5
