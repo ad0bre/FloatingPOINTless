@@ -7,12 +7,10 @@ function [15:0] log_function;
   begin
     temp = val;
 
-    if (val == 0) begin
-      $display("Error: log10 of 0 is undefined");
+    if (val == 0 || val[15] == 1) begin // Log of 0 or neg value is undefined
       log_function = 16'h8000;
     end else begin
       log_function = 0;
-
       for (i = 0; i < 16; i = i + 1) begin
         if (temp >= base) begin
           temp = temp / base;

@@ -14,7 +14,7 @@ module Register2
       else if(increment) 
             data_out <= data_out + 2;
       else if(decrement) begin
-          	data_out <= data_out - 2;
+            data_out <= data_out - 2;
       end
     end
 endmodule

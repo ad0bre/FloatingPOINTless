@@ -1,8 +1,8 @@
 function [15:0] pow1_function;
-  input [15:0] base;
+  input [15:0] base; 
   input [15:0] exponent;
-  reg [15:0] result;
-  reg [15:0] i;
+  reg [15:0] result;// result will be limited to 16 bits
+  reg [15:0] i;// iterator
 
   begin
     result = 1;

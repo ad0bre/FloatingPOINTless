@@ -1,11 +1,11 @@
 module MemoryUnit #(
-	parameter fileName = "Ex1.mem")(
+  parameter fileName = "Ex1.mem")(
     input clk,
     input we,
-  	input e,
-  	input data,
+    input e,
+    input data,
     input [15:0] data_in,
-  	input [15:0] address,
+    input [15:0] address,
     output reg [15:0] data_out
     );
     

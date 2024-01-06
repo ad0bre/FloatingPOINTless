@@ -15,33 +15,23 @@ module CPU #(
   wire[15:0] control_signals;
   wire[15:0] pc_input;
   wire[15:0] pc_output;
-  
   wire[15:0] add_output;
   wire[3:0] add_flags;
-  
   wire[15:0] add2_output;
-  
   wire[15:0] alu_output;
   wire[15:0] memory_address;
-  
   wire[15:0] read_data2;
   wire[15:0] memory_out;
-  
   wire[15:0] memory_data;
-  
   wire [3:0] alu_flags;
   wire [15:0] write_data;
-  
   wire [15:0] read_data;
   wire [15:0] sign_extended_data;
   wire [15:0] write_data_memory;
   wire [15:0] instruction_out;
-  
   wire [15:0] mux3_out;
   wire [4:0] op_select;
-  
   wire [1:0] read_reg;
-  
   wire[15:0] branch_output;
   
   Register #(16) PC (
@@ -52,6 +42,7 @@ module CPU #(
     .data_out(pc_output)
   );
   
+  // Addeer to increment PC with 2
   ALU Add (
     .enable(clk),
     .operation(5'b00001),
@@ -61,6 +52,7 @@ module CPU #(
     .flags(add_flags)
   );
   
+  // MUX to choose between 2 types of jumps
   Mux #(16) mux9(
     .a(add2_output),
     .b(write_data),
@@ -68,6 +60,7 @@ module CPU #(
     .c(branch_output)
   );
   
+  // MUX to choose between jump or pc increment
   Mux #(16) mux(
     .a(branch_output),
     .b(add_output),
@@ -75,6 +68,7 @@ module CPU #(
     .c(pc_input)
   );
   
+  // MUX to choose what to load in memory: PC or smth from registers
   Mux #(16) mux2(
     .a(pc_output),
     .b(alu_output),
@@ -95,7 +89,7 @@ module CPU #(
   CU control_unit(
     .clk(clk),
     .rst_b(rst_b),
-    .opcode_i(instruction_out[15:10]),
+    .opcode(instruction_out[15:10]),
     .flags(alu_flags),
     .c_signals(control_signals),
     .op_select(op_select)
@@ -119,6 +113,7 @@ module CPU #(
     .output_data(sign_extended_data)
   );
   
+  // MUX to select second ALU input (register or immediate)
   Mux #(16) mux3(
     .a(sign_extended_data),
     .b(read_data),
@@ -144,7 +139,7 @@ module CPU #(
     .flags(add_flags)
   );
   
-  
+  // 
   Mux #(16) mux4(
     .a(alu_output),
     .b(memory_out),
@@ -152,14 +147,13 @@ module CPU #(
     .c(write_data)
   );
   
+  // MUX to select what to write in memory (PC or reg content)
   Mux #(16) mux_mem_data(
     .a(read_data2),
     .b(pc_output ),
     .s(control_signals[12]),
     .c(memory_data)
   );
-  
-  
   
   Register #(16) InstructionBuffer (
     .clk(~clk),
@@ -168,7 +162,5 @@ module CPU #(
     .data_in(memory_out),
     .data_out(instruction_out)
   );
-  
-  
-  
+    
 endmodule

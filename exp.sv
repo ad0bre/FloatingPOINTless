@@ -3,6 +3,7 @@ function [15:0] exp_function;
   real result, term;
   integer i;
 
+  // Calcul dupa primii 11 termeni din seria Taylor
   begin
     result = 1.0; 
     term = 1.0;

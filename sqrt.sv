@@ -1,10 +1,11 @@
+// Metoda Newton-Raphson
 function [15:0] sqrt_function;
   input [15:0] x;
   reg [15:0] approx, next_approx;
   integer i;
 
   begin
-    if (x <= 0) begin
+    if (x <= 0) begin // Sqrt of 0 or neg value is not valid
       sqrt_function = 0;
     end else begin
       approx = 1;
